@@ -1,12 +1,11 @@
-var React = require('react')
-var fetchJson = require('../utilities/fetch-json.js')
-var Alert = require('react-s-alert').default
+import React from 'react'
+import fetchJson from '../utilities/fetch-json.js'
+import Alert from 'react-s-alert'
+import ConnectionList from './ConnectionList'
+import ConnectionForm from './ConnectionForm'
 const _ = window._
-const ConnectionList = require('./ConnectionList')
-const ConnectionForm = require('./ConnectionForm')
 
 class ConnectionsView extends React.Component {
-
   constructor (props) {
     super(props)
     this.state = {
@@ -145,4 +144,4 @@ class ConnectionsView extends React.Component {
   }
 }
 
-module.exports = ConnectionsView
+export default ConnectionsView

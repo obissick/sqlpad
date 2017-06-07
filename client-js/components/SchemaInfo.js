@@ -1,13 +1,12 @@
-var React = require('react')
-var FormGroup = require('react-bootstrap/lib/FormGroup')
-var FormControl = require('react-bootstrap/lib/FormControl')
-var Glyphicon = require('react-bootstrap/lib/Glyphicon')
+import React from 'react'
+import FormGroup from 'react-bootstrap/lib/FormGroup'
+import FormControl from 'react-bootstrap/lib/FormControl'
+import Glyphicon from 'react-bootstrap/lib/Glyphicon'
 import CopyToClipboard from 'react-copy-to-clipboard'
-var fetchJson = require('../utilities/fetch-json.js')
-const updateCompletions = require('../utilities/updateCompletions.js')
+import fetchJson from '../utilities/fetch-json.js'
+import updateCompletions from '../utilities/updateCompletions.js'
 
 class SchemaInfo extends React.PureComponent {
-
   constructor (props) {
     super(props)
     this.state = {
@@ -98,7 +97,7 @@ class SchemaInfo extends React.PureComponent {
         </FormGroup>
         <hr />
         <div id='panel-db-info-container'>
-          <a id='btn-reload-schema' href='#'>
+          <a id='btn-reload-schema' href='#refresh'>
             <Glyphicon glyph='refresh' className={refreshClass} onClick={this.onRefreshClick} />
           </a>
           <div id='panel-db-info'>
@@ -136,7 +135,7 @@ var SchemaInfoSchemaItem = React.createClass({
     }
     return (
       <li key={this.props.schema}>
-        <a href='#' onClick={this.onClick} className='schema-info-schema'>{this.props.schema}</a>
+        <a href='#schema' onClick={this.onClick} className='schema-info-schema'>{this.props.schema}</a>
         <ul>
           {tableJsx}
         </ul>
@@ -212,7 +211,7 @@ var SchemaInfoTableItem = React.createClass({
     }
     return (
       <li key={this.props.table}>
-        <a href='#' onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut} onClick={this.onClick} className='schema-info-table'>
+        <a href='#schema' onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut} onClick={this.onClick} className='schema-info-table'>
           {this.props.table} {viewType()}
           {getCopyToClipboard()}
         </a>
@@ -274,4 +273,4 @@ var SchemaInfoColumnItem = React.createClass({
   }
 })
 
-module.exports = SchemaInfo
+export default SchemaInfo

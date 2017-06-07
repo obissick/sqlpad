@@ -1,4 +1,4 @@
-var React = require('react')
+import React from 'react'
 
 var SecondsTimer = React.createClass({
   _mounted: false,
@@ -30,4 +30,4 @@ var SecondsTimer = React.createClass({
   }
 })
 
-module.exports = SecondsTimer
+export default SecondsTimer

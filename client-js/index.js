@@ -1,8 +1,20 @@
-//  This is the client side js entry file to be browserified
-var page = require('page')
-var React = require('react')
-var ReactDOM = require('react-dom')
-var fetchJson = require('./utilities/fetch-json.js')
+import React from 'react'
+import ReactDOM from 'react-dom'
+import fetchJson from './utilities/fetch-json.js'
+import page from 'page'
+import App from './App.js'
+import UserAdmin from './UserAdmin.js'
+import ConnectionsView from './connections/ConnectionsView.js'
+import ConfigValues from './ConfigValues.js'
+import FilterableQueryList from './FilterableQueryList.js'
+import QueryEditor from './QueryEditor.js'
+import SignIn from './SignIn.js'
+import SignUp from './SignUp.js'
+import ForgotPassword from './ForgotPassword.js'
+import PasswordReset from './PasswordReset.js'
+import QueryTableOnly from './QueryTableOnly.js'
+import QueryChartOnly from './QueryChartOnly.js'
+import FullscreenMessage from './FullscreenMessage.js'
 
 fetchJson('GET', 'api/app')
   .then((json) => {
@@ -13,7 +25,7 @@ fetchJson('GET', 'api/app')
   })
 
 function init (appData) {
-  var config = appData.config
+  const config = appData.config
   const BASE_URL = config.baseUrl
 
   // account for baseUrl in client-side routing
@@ -21,20 +33,6 @@ function init (appData) {
 
   /*  client-side routes
   ============================================================================== */
-  var App = require('./App.js')
-  var UserAdmin = require('./UserAdmin.js')
-  var ConnectionsView = require('./connections/ConnectionsView.js')
-  var ConfigValues = require('./ConfigValues.js')
-  var FilterableQueryList = require('./FilterableQueryList.js')
-  var QueryEditor = require('./QueryEditor.js')
-  var SignIn = require('./SignIn.js')
-  var SignUp = require('./SignUp.js')
-  var ForgotPassword = require('./ForgotPassword.js')
-  var PasswordReset = require('./PasswordReset.js')
-  var QueryTableOnly = require('./QueryTableOnly.js')
-  var QueryChartOnly = require('./QueryChartOnly.js')
-  var FullscreenMessage = require('./FullscreenMessage.js')
-
   function getAppData (ctx, next) {
     fetchJson('GET', 'api/app')
       .then((json) => {
@@ -73,7 +71,7 @@ function init (appData) {
   page.redirect('/', '/queries')
 
   page('/users', mustBeAuthenticated, mustBeAdmin, function (ctx) {
-    document.title = 'SqlPad - Users'
+    document.title = 'SQLPad - Users'
     ReactDOM.render(
       <App config={ctx.config} currentUser={ctx.currentUser}>
         <UserAdmin config={ctx.config} currentUser={ctx.currentUser} />
@@ -83,7 +81,7 @@ function init (appData) {
   })
 
   page('/connections', mustBeAuthenticated, mustBeAdmin, function (ctx) {
-    document.title = 'SqlPad - Connections'
+    document.title = 'SQLPad - Connections'
     ReactDOM.render(
       <App config={ctx.config} currentUser={ctx.currentUser}>
         <ConnectionsView config={ctx.config} />
@@ -93,7 +91,7 @@ function init (appData) {
   })
 
   page('/config-values', mustBeAuthenticated, mustBeAdmin, function (ctx) {
-    document.title = 'SqlPad - Configuration'
+    document.title = 'SQLPad - Configuration'
     ReactDOM.render(
       <App config={ctx.config} currentUser={ctx.currentUser}>
         <ConfigValues config={ctx.config} />
@@ -103,7 +101,7 @@ function init (appData) {
   })
 
   page('/queries', mustBeAuthenticated, function (ctx) {
-    document.title = 'SqlPad - Queries'
+    document.title = 'SQLPad - Queries'
     ReactDOM.render(
       <App config={ctx.config} currentUser={ctx.currentUser}>
         <FilterableQueryList
@@ -126,7 +124,7 @@ function init (appData) {
   })
 
   page('/signin', function (ctx) {
-    document.title = 'SqlPad - Sign In'
+    document.title = 'SQLPad - Sign In'
     ReactDOM.render(
       <SignIn
         config={ctx.config}
@@ -137,7 +135,7 @@ function init (appData) {
   })
 
   page('/signup', function (ctx) {
-    document.title = 'SqlPad - Sign Up'
+    document.title = 'SQLPad - Sign Up'
     ReactDOM.render(
       <SignUp
         config={ctx.config}
@@ -147,7 +145,7 @@ function init (appData) {
   })
 
   page('/forgot-password', function (ctx) {
-    document.title = 'SqlPad - Forgot Password'
+    document.title = 'SQLPad - Forgot Password'
     ReactDOM.render(
       <ForgotPassword
         config={ctx.config} />,
@@ -156,7 +154,7 @@ function init (appData) {
   })
 
   page('/password-reset', function (ctx) {
-    document.title = 'SqlPad - Password Reset'
+    document.title = 'SQLPad - Password Reset'
     ReactDOM.render(
       <FullscreenMessage>
         <p>
@@ -171,7 +169,7 @@ function init (appData) {
   })
 
   page('/password-reset/:passwordResetId', function (ctx) {
-    document.title = 'SqlPad - Reset Password'
+    document.title = 'SQLPad - Reset Password'
     ReactDOM.render(
       <PasswordReset
         passwordResetId={ctx.params.passwordResetId}
@@ -182,7 +180,7 @@ function init (appData) {
   })
 
   page('/query-table/:queryId', function (ctx) {
-    document.title = 'SqlPad'
+    document.title = 'SQLPad'
     ReactDOM.render(
       <QueryTableOnly
         config={ctx.config}
@@ -192,7 +190,7 @@ function init (appData) {
   })
 
   page('/query-chart/:queryId', function (ctx) {
-    document.title = 'SqlPad'
+    document.title = 'SQLPad'
     ReactDOM.render(
       <QueryChartOnly
         config={ctx.config}
@@ -202,7 +200,7 @@ function init (appData) {
   })
 
   page('*', function (ctx) {
-    document.title = 'SqlPad - Not Found'
+    document.title = 'SQLPad - Not Found'
     var Component
     if (ctx.currentUser) {
       Component = (

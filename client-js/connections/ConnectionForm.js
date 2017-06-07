@@ -1,11 +1,12 @@
-var React = require('react')
-var Panel = require('react-bootstrap/lib/Panel')
-var Form = require('react-bootstrap/lib/Form')
-var FormGroup = require('react-bootstrap/lib/FormGroup')
-var FormControl = require('react-bootstrap/lib/FormControl')
-var ControlLabel = require('react-bootstrap/lib/ControlLabel')
-var Checkbox = require('react-bootstrap/lib/Checkbox')
-var Button = require('react-bootstrap/lib/Button')
+import React from 'react'
+import PropTypes from 'prop-types'
+import Panel from 'react-bootstrap/lib/Panel'
+import Form from 'react-bootstrap/lib/Form'
+import FormGroup from 'react-bootstrap/lib/FormGroup'
+import FormControl from 'react-bootstrap/lib/FormControl'
+import ControlLabel from 'react-bootstrap/lib/ControlLabel'
+import Checkbox from 'react-bootstrap/lib/Checkbox'
+import Button from 'react-bootstrap/lib/Button'
 
 const TEXT = 'TEXT'
 const PASSWORD = 'PASSWORD'
@@ -68,6 +69,31 @@ const fields = {
     formType: TEXT,
     label: 'Database CA Path'
   },
+  useSocks: {
+    key: 'useSocks',
+    formType: CHECKBOX,
+    label: 'Connect through SOCKS proxy'
+  },
+  socksHost: {
+    key: 'socksHost',
+    formType: TEXT,
+    label: 'Proxy hostname'
+  },
+  socksPort: {
+    key: 'socksPort',
+    formType: TEXT,
+    label: 'Proxy port'
+  },
+  socksUsername: {
+    key: 'socksUsername',
+    formType: TEXT,
+    label: 'Username for socks proxy'
+  },
+  socksPassword: {
+    key: 'socksPassword',
+    formType: TEXT,
+    label: 'Password for socks proxy'
+  },
   mysqlInsecureAuth: {
     key: 'mysqlInsecureAuth',
     formType: CHECKBOX,
@@ -107,7 +133,12 @@ const driverFields = {
     fields.postgresSsl,
     fields.postgresCert,
     fields.postgresKey,
-    fields.postgresCA
+    fields.postgresCA,
+    fields.useSocks,
+    fields.socksHost,
+    fields.socksPort,
+    fields.socksUsername,
+    fields.socksPassword
   ],
   presto: [
     fields.host,
@@ -244,11 +275,11 @@ class ConnectionForm extends React.Component {
 }
 
 ConnectionForm.propTypes = {
-  selectedConnection: React.PropTypes.object,
-  testConnection: React.PropTypes.func.isRequired,
-  saveConnection: React.PropTypes.func.isRequired,
-  isTesting: React.PropTypes.bool,
-  isSaving: React.PropTypes.bool
+  selectedConnection: PropTypes.object,
+  testConnection: PropTypes.func.isRequired,
+  saveConnection: PropTypes.func.isRequired,
+  isTesting: PropTypes.bool,
+  isSaving: PropTypes.bool
 }
 
 ConnectionForm.defaultProps = {
@@ -257,4 +288,4 @@ ConnectionForm.defaultProps = {
   selectedConnection: null
 }
 
-module.exports = ConnectionForm
+export default ConnectionForm

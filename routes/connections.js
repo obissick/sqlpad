@@ -21,7 +21,12 @@ function connectionFromBody (body) {
     postgresCert: body.postgresCert,
     postgresKey: body.postgresKey,
     postgresCA: body.postgresCA,
-    mysqlInsecureAuth: (body.mysqlInsecureAuth === true),
+    useSocks: body.useSocks,
+    socksHost: body.socksHost,
+    socksPort: body.socksPort,
+    socksUsername: body.socksUsername,
+    socksPassword: body.socksPassword,
+    mysqlInsecureAuth: body.mysqlInsecureAuth === true,
     prestoCatalog: body.prestoCatalog,
     prestoSchema: body.prestoSchema
   }
@@ -111,12 +116,12 @@ router.put('/api/connections/:_id', mustBeAdmin, function (req, res) {
     connection.port = req.body.port
     connection.database = req.body.database
     connection.domain = req.body.domain
-    connection.sqlserverEncrypt = (req.body.sqlserverEncrypt === true)
-    connection.postgresSsl = (req.body.postgresSsl === true)
+    connection.sqlserverEncrypt = req.body.sqlserverEncrypt === true
+    connection.postgresSsl = req.body.postgresSsl === true
     connection.postgresCert = req.body.postgresCert
     connection.postgresKey = req.body.postgresKey
     connection.postgresCA = req.body.postgresCA
-    connection.mysqlInsecureAuth = (req.body.mysqlInsecureAuth === true)
+    connection.mysqlInsecureAuth = req.body.mysqlInsecureAuth === true
     connection.prestoCatalog = req.body.prestoCatalog
     connection.prestoSchema = req.body.prestoSchema
     connection.save(function (err, connection) {

@@ -1,10 +1,10 @@
-var React = require('react')
-var fetchJson = require('./utilities/fetch-json.js')
-var Alert = require('react-s-alert').default
+import React from 'react'
+import Alert from 'react-s-alert'
 import navigateToClickHandler from './utilities/navigateToClickHandler'
-var page = require('page')
+import fetchJson from './utilities/fetch-json.js'
+import page from 'page'
 
-var SignIn = React.createClass({
+const SignIn = React.createClass({
   getInitialState: function () {
     return {
       email: '',
@@ -52,8 +52,8 @@ var SignIn = React.createClass({
         </form>
         <div className='form-signin-footer'>
           <p>
-            <a onClick={navigateToClickHandler('/signup')} href='#'>Sign Up</a>
-            {(this.props.smtpConfigured ? <a style={{marginLeft: 50}} onClick={navigateToClickHandler('/forgot-password')} href='#' >Forgot Password</a> : null)}
+            <a onClick={navigateToClickHandler('/signup')} href='#signup'>Sign Up</a>
+            {(this.props.smtpConfigured ? <a style={{marginLeft: 50}} onClick={navigateToClickHandler('/forgot-password')} href='#forgot' >Forgot Password</a> : null)}
           </p>
         </div>
       </div>
@@ -69,7 +69,7 @@ var SignIn = React.createClass({
     )
     return (
       <div className='signin'>
-        <h2>SqlPad</h2>
+        <h2>SQLPad</h2>
         {('local' in this.props.passport.strategies ? localForm : null)}
         {('google' in this.props.passport.strategies ? googleForm : null)}
         <Alert stack={{limit: 3}} position='bottom-right' />
@@ -78,4 +78,4 @@ var SignIn = React.createClass({
   }
 })
 
-module.exports = SignIn
+export default SignIn

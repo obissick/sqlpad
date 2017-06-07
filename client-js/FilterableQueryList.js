@@ -1,25 +1,25 @@
-var React = require('react')
-var moment = require('moment')
-var _ = window._
-var fetchJson = require('./utilities/fetch-json.js')
-var Alert = require('react-s-alert').default
+import React from 'react'
+import moment from 'moment'
+import Alert from 'react-s-alert'
 import AceEditor from 'react-ace'
 import 'brace/mode/sql'
 import 'brace/theme/sqlserver'
-var chartDefinitions = require('./components/ChartDefinitions.js')
-var Label = require('react-bootstrap/lib/Label')
-var Form = require('react-bootstrap/lib/Form')
-var FormGroup = require('react-bootstrap/lib/FormGroup')
-var FormControl = require('react-bootstrap/lib/FormControl')
-var ControlLabel = require('react-bootstrap/lib/ControlLabel')
-var ListGroup = require('react-bootstrap/lib/ListGroup')
-var Button = require('react-bootstrap/lib/Button')
-var Glyphicon = require('react-bootstrap/lib/Glyphicon')
-var Popover = require('react-bootstrap/lib/Popover')
-var OverlayTrigger = require('react-bootstrap/lib/OverlayTrigger')
+import Label from 'react-bootstrap/lib/Label'
+import Form from 'react-bootstrap/lib/Form'
+import FormGroup from 'react-bootstrap/lib/FormGroup'
+import FormControl from 'react-bootstrap/lib/FormControl'
+import ControlLabel from 'react-bootstrap/lib/ControlLabel'
+import ListGroup from 'react-bootstrap/lib/ListGroup'
+import Button from 'react-bootstrap/lib/Button'
+import Glyphicon from 'react-bootstrap/lib/Glyphicon'
+import Popover from 'react-bootstrap/lib/Popover'
+import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger'
 import navigateToClickHandler from './utilities/navigateToClickHandler'
+import fetchJson from './utilities/fetch-json.js'
+import chartDefinitions from './components/ChartDefinitions.js'
+const _ = window._
 
-var FilterableQueryList = React.createClass({
+const FilterableQueryList = React.createClass({
   getInitialState: function () {
     return {
       queries: [],
@@ -320,11 +320,15 @@ var QueryListRow = React.createClass({
         className={selectedStyle()}
         onMouseOver={this.onMouseOver}
         onMouseOut={this.onMouseOut} >
-        <h4><a onClick={navigateToClickHandler('/queries/' + this.props.query._id)} href='#' >{this.props.query.name}</a></h4>
+        <h4><a onClick={navigateToClickHandler('/queries/' + this.props.query._id)} href='#query' >{this.props.query.name}</a></h4>
         <p>{this.props.query.createdBy} {tagLabels}</p>
-        <p><a href={tableUrl} target='_blank'>table</a> <a href={chartUrl} target='_blank'>chart</a> </p>
+        <p>
+          <a href={tableUrl} target='_blank' rel='noopener noreferrer'>table</a>
+          {' '}
+          <a href={chartUrl} target='_blank' rel='noopener noreferrer'>chart</a>
+        </p>
         <OverlayTrigger trigger='click' placement='left' container={this} rootClose overlay={popoverClick}>
-          <a className='QueryListRowDeleteButton' href='#'><Glyphicon glyph='trash' /></a>
+          <a className='QueryListRowDeleteButton' href='#delete'><Glyphicon glyph='trash' /></a>
         </OverlayTrigger>
       </li>
     )
@@ -376,4 +380,4 @@ var QueryPreview = React.createClass({
   }
 })
 
-module.exports = FilterableQueryList
+export default FilterableQueryList

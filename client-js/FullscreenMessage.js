@@ -1,4 +1,4 @@
-var React = require('react')
+import React from 'react'
 
 const style = {
   display: 'flex',
@@ -13,7 +13,7 @@ const style = {
   fontSize: 36
 }
 
-module.exports = (props) => (
+export default (props) => (
   <div style={style}>
     {props.children}
   </div>

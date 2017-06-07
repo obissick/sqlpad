@@ -25,6 +25,7 @@ const PASSPHRASE = config.get('passphrase')
 const CERT_PASSPHRASE = config.get('certPassphrase')
 const KEY_PATH = config.get('keyPath')
 const CERT_PATH = config.get('certPath')
+const SYSTEMD_SOCKET = config.get('systemdSocket')
 
 if (DEBUG) {
   console.log('Config Values:')
@@ -43,7 +44,7 @@ var errorhandler = require('errorhandler')
 
 var app = express()
 
-app.locals.title = 'SqlPad'
+app.locals.title = 'SQLPad'
 app.locals.version = packageJson.version
 app.set('env', (DEBUG ? 'development' : 'production'))
 
@@ -136,6 +137,36 @@ if (fs.existsSync(htmlPath)) {
   console.error('If not running in dev mode please report this issue.\n')
 }
 
+function isFdObject (ob) {
+  return ob && typeof ob.fd === 'number'
+}
+
+// When --systemd-socket is passed we will try to acquire the bound socket
+// directly from Systemd.
+//
+// More info
+//
+// https://github.com/rickbergfalk/sqlpad/pull/185
+// https://www.freedesktop.org/software/systemd/man/systemd.socket.html
+// https://www.freedesktop.org/software/systemd/man/sd_listen_fds.html
+function detectPortOrSystemd (port) {
+  if (SYSTEMD_SOCKET) {
+    const passedSocketCount = parseInt(process.env.LISTEN_FDS) || 0
+
+    // LISTEN_FDS contains number of sockets passed by Systemd. At least one
+    // must be passed. The sockets are set to file descriptors starting from 3.
+    // We just crab the first socket from fd 3 since sqlpad binds only one
+    // port.
+    if (passedSocketCount > 0) {
+      console.log('Using port from Systemd')
+      return Promise.resolve({fd: 3})
+    } else {
+      console.error('Warning: Systemd socket asked but not found. Trying to bind port ' + port + ' manually')
+    }
+  }
+
+  return detectPort(port)
+}
 
 /*  Start the Server
 ============================================================================= */
@@ -145,8 +176,8 @@ require('./lib/db').load(function (err) {
   // determine if key pair exists for certs
   if (KEY_PATH && CERT_PATH) { // https only
     console.log('Launching server with SSL')
-    detectPort(HTTPS_PORT).then(function (_port) {
-      if (HTTPS_PORT !== _port) {
+    detectPortOrSystemd(HTTPS_PORT).then(function (_port) {
+      if (!isFdObject(_port) && HTTPS_PORT !== _port) {
         console.log('\nPort %d already occupied. Using port %d instead.', HTTPS_PORT, _port)
         // Persist the new port to the in-memory store. This is kinda hacky
         // Assign value to cliValue since it overrides all other values
@@ -170,8 +201,8 @@ require('./lib/db').load(function (err) {
     })
   } else { // http only
     console.log('Launching server WITHOUT SSL')
-    detectPort(PORT).then(function (_port) {
-      if (PORT !== _port) {
+    detectPortOrSystemd(PORT).then(function (_port) {
+      if (!isFdObject(_port) && PORT !== _port) {
         console.log('\nPort %d already occupied. Using port %d instead.', PORT, _port)
         // Persist the new port to the in-memory store. This is kinda hacky
         // Assign value to cliValue since it overrides all other values

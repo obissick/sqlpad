@@ -1,11 +1,11 @@
 // import various ace editor things
-var ace = require('brace')
+import * as ace from 'brace'
 import 'brace/mode/sql'
 import 'brace/theme/sqlserver'
 import 'brace/ext/searchbox'
 import 'brace/ext/language_tools'
 
-module.exports = updateCompletions
+export default updateCompletions
 
 // There's stuff below that logs to console a lot
 // documentation on this autocompletion is light

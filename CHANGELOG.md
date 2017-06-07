@@ -1,7 +1,16 @@
 # Changelog
 
+## Installing beta via npm:
 Install latest beta with `npm i -g sqlpad@beta`  
-Rollback to latest stable with `npm i -g sqlpad@2.1.3`  
+Install a specific version `npm i -g sqlpad@2.1.3`  
+
+## next (in development)
+- added systemd socket activation support (epeli)
+- added option to disable update check
+
+## 2.2.0
+### May 29, 2017
+- added SOCKS proxy support for postgres (brysgo)
 
 ## 2.2.0-beta2
 ### March 19, 2017
@@ -11,9 +20,9 @@ Rollback to latest stable with `npm i -g sqlpad@2.1.3`
 ### March 18, 2017
 - fixed query tag weirdness from previous v1 weirdness
 - leading 0s preserved in query results and treated as strings instead of numbers
-- support for postgres ssl certs (thanks johicks and nikicat)
-- fixed crate v1 schema support (thanks mikethebeer)
-- naive autocomplete!
+- support for postgres ssl certs (johicks and nikicat)
+- fixed crate v1 schema support (mikethebeer)
+- naive autocomplete
 - refactored connection admin screen
 - changed build system to fork create-react-app
 
@@ -30,15 +39,15 @@ Rollback to latest stable with `npm i -g sqlpad@2.1.3`
 
 ## 2.1.1
 ### November 29, 2016
-- Fix: disabling of links on query details modal (thanks vweevers!)
-- Fix: Vis tab loading indicator behaves same as query tab, hiding error on rerun (thanks vweevers!)
-- Fix: Charts rendered lazily. Query result grid loads faster, large query results won't lock browser until you try to chart. (thanks vweevers!)
+- Fix: disabling of links on query details modal (vweevers)
+- Fix: Vis tab loading indicator behaves same as query tab, hiding error on rerun (vweevers)
+- Fix: Charts rendered lazily. Query result grid loads faster, large query results won't lock browser until you try to chart. (vweevers)
 - Fix: Hide local auth form if DISABLE_USERPASS_AUTH=true
 
 ## 2.1.0
 ### November 20, 2016
-- run https via sqlpad directly (see additional setting) (thanks jameswinegar!) 
-- Support non English characters when downloading files (thanks askluyao!)
+- run https via sqlpad directly (see additional setting) (jameswinegar) 
+- Support non English characters when downloading files (askluyao)
 - render booleans/null timestamps properly
 
 ## 2.0.0
@@ -50,7 +59,7 @@ Rollback to latest stable with `npm i -g sqlpad@2.1.3`
 - Password reset/forogot password functionality added
     - Admins may generate reset links manually
     - If smtp is set up forgot password link is enabled
-- EMAIL!
+- EMAIL
 - Configuration:
     - Checklist added for OAuth and Email
     - Item is disabled in UI if value is provided by environment or cli 
@@ -101,7 +110,7 @@ Rollback to latest stable with `npm i -g sqlpad@2.1.3`
 - materialized views are included in schema sidebar for postgres
 
 ## 1.16.0
-- SqlPad may now be mounted under a base url path by providing --base-url cli flag or SQLPAD_BASE_URL env variable
+- SQLPad may now be mounted under a base url path by providing --base-url cli flag or SQLPAD_BASE_URL env variable
 - Updated taucharts to 0.9.1
 - Legends are now included when saving png chart images
 
@@ -114,7 +123,7 @@ Rollback to latest stable with `npm i -g sqlpad@2.1.3`
 - Add ability to turn off date localization (add config item "localize" set to "false")
 
 ## 1.13.0
-- Add --debug flag to SqlPad cli to enable extra logging
+- Add --debug flag to SQLPad cli to enable extra logging
 - Port and passphrase may be set via environment variables SQLPAD_PORT and SQLPAD_PASSPHRASE
 
 ## 1.12.0
@@ -130,8 +139,8 @@ Rollback to latest stable with `npm i -g sqlpad@2.1.3`
 
 ## 1.9.0
 - Charting now handled by the very cool tauCharts library. It's a bit faster, has facets, grammar of graphics concepts, handles time series data better, trendlines.
-- When changing chart types, SqlPad will remember and reapply the field selections where applicable. 
-- SqlPad database files compacted every 10 minutes, instead of once a day
+- When changing chart types, SQLPad will remember and reapply the field selections where applicable. 
+- SQLPad database files compacted every 10 minutes, instead of once a day
 - Signup page styling is fixed.
 - Schema-item-name copy-to-clipboard buttons now available. Opt in by creating configuration item `showSchemaCopyButton` to `true`.
 - Query results can now be downloaded as xlsx file. (link will be hidden if csv downloads are disabled)
@@ -191,4 +200,4 @@ Rollback to latest stable with `npm i -g sqlpad@2.1.3`
 - Add initial Vertica support via use of Postgres driver
 
 ## 1.0.0
-- SqlPad is released!
+- SQLPad is released

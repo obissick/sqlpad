@@ -1,11 +1,11 @@
-var React = require('react')
-var Button = require('react-bootstrap/lib/Button')
-var Glyphicon = require('react-bootstrap/lib/Glyphicon')
-var Popover = require('react-bootstrap/lib/Popover')
-var OverlayTrigger = require('react-bootstrap/lib/OverlayTrigger')
+import React from 'react'
+import PropTypes from 'prop-types'
+import Button from 'react-bootstrap/lib/Button'
+import Glyphicon from 'react-bootstrap/lib/Glyphicon'
+import Popover from 'react-bootstrap/lib/Popover'
+import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger'
 
 class ConnectionListRow extends React.Component {
-
   constructor (props) {
     super(props)
     this.onDelete = this.onDelete.bind(this)
@@ -35,10 +35,10 @@ class ConnectionListRow extends React.Component {
     )
     return (
       <li className={getClassNames()}>
-        <h4><a href='#' onClick={this.onSelect}>{this.props.connection.name}</a></h4>
+        <h4><a href='#connection' onClick={this.onSelect}>{this.props.connection.name}</a></h4>
         <h5>{this.props.connection.driver} {this.props.connection.host}/{this.props.connection.database}</h5>
         <OverlayTrigger trigger='click' placement='left' container={this} rootClose overlay={popoverClick}>
-          <a className='ListRowDeleteButton' href='#'><Glyphicon glyph='trash' /></a>
+          <a className='ListRowDeleteButton' href='#delete'><Glyphicon glyph='trash' /></a>
         </OverlayTrigger>
       </li>
     )
@@ -46,14 +46,14 @@ class ConnectionListRow extends React.Component {
 }
 
 ConnectionListRow.propTypes = {
-  handleDelete: React.PropTypes.func.isRequired,
-  handleSelect: React.PropTypes.func.isRequired,
-  selectedConnection: React.PropTypes.object,
-  connection: React.PropTypes.object.isRequired
+  handleDelete: PropTypes.func.isRequired,
+  handleSelect: PropTypes.func.isRequired,
+  selectedConnection: PropTypes.object,
+  connection: PropTypes.object.isRequired
 }
 
 ConnectionListRow.defaultProps = {
   selectedConnection: {}
 }
 
-module.exports = ConnectionListRow
+export default ConnectionListRow

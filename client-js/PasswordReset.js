@@ -1,7 +1,7 @@
-var React = require('react')
-var fetchJson = require('./utilities/fetch-json.js')
-var Alert = require('react-s-alert').default
-var page = require('page')
+import React from 'react'
+import fetchJson from './utilities/fetch-json.js'
+import Alert from 'react-s-alert'
+import page from 'page'
 
 var PasswordReset = React.createClass({
   getInitialState: function () {
@@ -48,7 +48,7 @@ var PasswordReset = React.createClass({
     if (this.state.notFound) {
       return (
         <div className='signin' >
-          <form className='form-signin' role='form' onSubmit={this.resetPassword}>
+          <form className='form-signin' onSubmit={this.resetPassword}>
             <h2>Password Reset<br />Not Found</h2>
           </form>
           <Alert stack={{limit: 3}} position='bottom-right' />
@@ -57,8 +57,8 @@ var PasswordReset = React.createClass({
     }
     return (
       <div className='signin' >
-        <form className='form-signin' role='form' onSubmit={this.resetPassword}>
-          <h2>SqlPad</h2>
+        <form className='form-signin' onSubmit={this.resetPassword}>
+          <h2>SQLPad</h2>
           <input
             name='email'
             type='email'
@@ -89,4 +89,4 @@ var PasswordReset = React.createClass({
   }
 })
 
-module.exports = PasswordReset
+export default PasswordReset

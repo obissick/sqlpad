@@ -1,8 +1,8 @@
-var React = require('react')
-var SecondsTimer = require('./SecondsTimer.js')
+import React from 'react'
 import IncompleteDataNotification from './IncompleteDataNotification'
+import SecondsTimer from './SecondsTimer.js'
 
-var QueryResultHeader = React.createClass({
+const QueryResultHeader = React.createClass({
   render: function () {
     if (this.props.isRunning || !this.props.queryResult) {
       return (
@@ -18,17 +18,17 @@ var QueryResultHeader = React.createClass({
         </div>
       )
     }
-    var csvDownloadLink = this.props.config.baseUrl + '/download-results/' + this.props.cacheKey + '.csv'
-    var xlsxDownloadLink = this.props.config.baseUrl + '/download-results/' + this.props.cacheKey + '.xlsx'
-    var serverSec = (this.props.queryResult ? (this.props.queryResult.queryRunTime / 1000) + ' sec.' : '')
-    var rowCount = (this.props.queryResult && this.props.queryResult.rows ? this.props.queryResult.rows.length : '')
-    var downloadLinks = () => {
+    const csvDownloadLink = this.props.config.baseUrl + '/download-results/' + this.props.cacheKey + '.csv'
+    const xlsxDownloadLink = this.props.config.baseUrl + '/download-results/' + this.props.cacheKey + '.xlsx'
+    const serverSec = (this.props.queryResult ? (this.props.queryResult.queryRunTime / 1000) + ' sec.' : '')
+    const rowCount = (this.props.queryResult && this.props.queryResult.rows ? this.props.queryResult.rows.length : '')
+    const downloadLinks = () => {
       if (this.props.config.allowCsvDownload) {
         return (
           <span>
             <span className='panel-result-header-label'>Download: </span>
-            <a className='result-download-link' target='_blank' href={csvDownloadLink}>.csv</a>
-            <a className='result-download-link' target='_blank' href={xlsxDownloadLink}>.xlsx</a>
+            <a className='result-download-link' target='_blank' rel='noopener noreferrer' href={csvDownloadLink}>.csv</a>
+            <a className='result-download-link' target='_blank' rel='noopener noreferrer' href={xlsxDownloadLink}>.xlsx</a>
           </span>
         )
       }
@@ -54,4 +54,4 @@ var QueryResultHeader = React.createClass({
   }
 })
 
-module.exports = QueryResultHeader
+export default QueryResultHeader
