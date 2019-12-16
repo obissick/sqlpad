@@ -1,132 +1,28 @@
 {
-  "name": "sqlpad",
-  "version": "2.2.0",
-  "description": "Web app for writing and running SQL queries and visualizing the results. Supports Postgres, MySQL, SQL Server, Crate and Vertica.",
-  "license": "MIT",
-  "author": {
-    "name": "Rick Bergfalk",
-    "email": "rick.bergfalk@gmail.com"
-  },
-  "engines": {
-    "node": ">=4"
-  },
-  "contributors": [
-    {
-      "name": "D. Can Celasun",
-      "email": "dcelasun@gmail.com"
-    }
-  ],
-  "keywords": [
-    "sql",
-    "mssql",
-    "postgres",
-    "postgresql",
-    "mysql",
-    "crate",
-    "presto",
-    "vertica"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/rickbergfalk/sqlpad"
-  },
-  "bugs": {
-    "url": "https://github.com/rickbergfalk/sqlpad/issues",
-    "email": "rick.bergfalk@gmail.com"
-  },
-  "proxy": "http://localhost:3010",
-  "homepage": "http://BASEURL",
-  "scripts": {
-    "standard": "standard --fix",
-    "test": "standard && mocha --recursive",
-    "test-client": "react-scripts test --env=jsdom",
-    "coverage": "istanbul cover _mocha -- --recursive",
-    "start-server-dev": "node-dev server.js --dir ./db --port 3010 --debug",
-    "start-client-dev": "react-scripts start",
-    "prepublish": "npm run build",
-    "build": "react-scripts build",
-    "start": "npm run start-server-dev",
-    "build-dev": "npm run start-client-dev"
-  },
-  "dependencies": {
-    "async": "^2.0.1",
-    "bcrypt-nodejs": "0.0.3",
-    "body-parser": "1.x.x",
-    "cookie-parser": "1.x.x",
-    "cookie-session": "1.x.x",
-    "detect-port": "^1.0.0",
-    "errorhandler": "^1.4.0",
-    "express": "4.x.x",
-    "joi": "^10.0.1",
-    "json2csv": "^3.7.3",
-    "latest-version": "^3.1.0",
-    "lodash": "^4.13.1",
-    "minimist": "^1.2.0",
-    "mkdirp": "^0.5.1",
-    "moment": "2.x.x",
-    "morgan": "1.x.x",
-    "mssql": "^3.0.0",
-    "mysql": "2.x.x",
-    "nedb": "1.x.x",
-    "node-crate": "1.x.x",
-    "node-xlsx": "^0.7.1",
-    "nodemailer": "^2.6.0",
-    "passport": "^0.3.2",
-    "passport-google-oauth2": "^0.1.6",
-    "passport-http": "^0.3.0",
-    "passport-local": "^1.0.0",
-    "pg": "^6.0.0",
-    "pg-cursor": "^1.0.1",
-    "presto-client": "^0.1.0",
-    "request": "^2.58.0",
-    "rimraf": "^2.5.4",
-    "sanitize-filename": "1.x.x",
-    "semver-diff": "^2.1.0",
-    "serve-favicon": "2.x.x",
-    "socksjs": "^0.5.0",
-    "toml": "^2.3.0",
-    "uuid": "^3.0.1",
-    "vertica": "0.5.x"
-  },
-  "main": "server.js",
-  "bin": {
-    "sqlpad": "./server.js"
-  },
+  "name": "sqlpad-project",
+  "version": "3.5.1",
+  "private": true,
   "devDependencies": {
-    "@rickbergfalk/sqlpad-react-scripts": "^1.0.7",
-    "brace": "^0.10.0",
-    "chai": "^4.0.0",
-    "deep-equal": "^1.0.1",
-    "ejs": "^2.5.6",
-    "fixed-data-table": "^0.6.3",
-    "fs-extra": "^3.0.1",
-    "istanbul": "^0.4.4",
-    "keymaster": "^1.6.2",
-    "marky-mark": "1.x.x",
-    "mocha": "^3.0.0",
-    "node-dev": "^3.1.3",
-    "page": "^1.7.1",
-    "prop-types": "^15.5.10",
-    "react": "^15.1.0",
-    "react-ace": "^5.0.1",
-    "react-bootstrap": "^0.31.0",
-    "react-copy-to-clipboard": "^5.0.0",
-    "react-dom": "^15.1.0",
-    "react-overlays": "^0.7.0",
-    "react-s-alert": "^1.1.4",
-    "react-select": "^1.0.0-rc.1",
-    "standard": "^10.0.2",
-    "taucharts": "^1.2.1",
-    "watch": "^1.0.2",
-    "whatwg-fetch": "^2.0.1"
+    "husky": "^3.0.9",
+    "lint-staged": "^9.4.2",
+    "prettier": "^1.18.2"
   },
-  "standard": {
-    "globals": [
-      "fetch"
-    ],
-    "ignore": [
-      "/public/",
-      "/build/"
+  "prettier": {
+    "singleQuote": true
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,json,css}": [
+      "prettier --write",
+      "git add"
     ]
+  },
+  "scripts": {
+    "fixlint": "npm run fixlint --prefix client && npm run fixlint --prefix server && prettier --write '**/*.js'",
+    "lint": "npm run lint --prefix client && npm run lint --prefix server && prettier --check '**/*.js'"
   }
 }
